@@ -1,0 +1,42 @@
+.footer {
+  background: var(--ink);
+  color: var(--kraft);
+  padding: 40px 0 26px;
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.socials {
+  display: flex;
+  gap: 18px;
+  font-family: var(--font-utility);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.socials a {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.socials a:hover,
+.socials a:focus-visible {
+  opacity: 1;
+  color: var(--gold);
+}
+
+.fine {
+  font-family: var(--font-utility);
+  font-size: 0.66rem;
+  opacity: 0.5;
+  margin: 16px 0 0;
+  width: 100%;
+  line-height: 1.5;
+}

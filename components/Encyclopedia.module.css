@@ -1,0 +1,116 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px 22px;
+}
+
+@media (max-width: 880px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Field-note card: torn from a Foxfire anthology and taped to the page. */
+.card {
+  background: var(--paper);
+  color: var(--ink);
+  padding: 20px 18px 18px;
+  position: relative;
+  border: 1px solid rgba(36, 29, 20, 0.15);
+  box-shadow: 4px 5px 0 rgba(36, 29, 20, 0.18);
+}
+
+.card:nth-child(3n + 1) {
+  transform: rotate(-1deg);
+}
+
+.card:nth-child(3n + 2) {
+  transform: rotate(0.7deg);
+  margin-top: 10px;
+}
+
+.card:nth-child(3n) {
+  transform: rotate(-0.4deg);
+  margin-top: 4px;
+}
+
+/* the strip of tape */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 24px;
+  width: 26px;
+  height: 16px;
+  background: rgba(198, 145, 46, 0.55);
+  transform: rotate(-4deg);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.tag {
+  font-family: var(--font-utility);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rust);
+  border-bottom: 1px dashed var(--rust);
+  padding-bottom: 2px;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin-top: 14px;
+  color: var(--ink);
+}
+
+.home {
+  font-family: var(--font-utility);
+  font-size: 0.7rem;
+  opacity: 0.65;
+  letter-spacing: 0.02em;
+  margin-top: 3px;
+}
+
+.blurb {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink);
+  opacity: 0.85;
+  margin: 12px 0 14px;
+}
+
+.startHere {
+  font-family: var(--font-utility);
+  font-size: 0.72rem;
+  border-top: 1px dashed rgba(36, 29, 20, 0.3);
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  opacity: 0.85;
+}
+
+.startHere b {
+  color: var(--rust);
+}
+
+.more {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.more a {
+  font-family: var(--font-utility);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.82rem;
+  text-decoration: underline wavy var(--rust);
+  text-underline-offset: 5px;
+  color: var(--rust);
+}

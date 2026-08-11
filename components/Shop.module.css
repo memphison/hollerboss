@@ -1,0 +1,78 @@
+.shop {
+  background: var(--ink);
+  margin-top: -2px;
+}
+
+.panel {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 36px;
+  align-items: center;
+  position: relative;
+  box-shadow: 6px 6px 0 var(--rust);
+}
+
+@media (max-width: 760px) {
+  .panel {
+    grid-template-columns: 1fr;
+    padding: 28px 22px;
+  }
+}
+
+/* Product shot pinned into the page like a scrapbook snapshot. */
+.stage {
+  background: var(--kraft);
+  padding: 14px;
+  transform: rotate(-2deg);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.copy h2 {
+  color: var(--paper);
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  margin-top: 8px;
+}
+
+.copy .eyebrowGold {
+  color: var(--gold);
+}
+
+.copy p {
+  color: var(--kraft);
+  line-height: 1.6;
+  margin-top: 12px;
+  max-width: 420px;
+  opacity: 0.9;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold);
+}
+
+.priceSub {
+  font-family: var(--font-utility);
+  font-size: 0.72rem;
+  opacity: 0.6;
+}
+
+.cta {
+  margin-top: 24px;
+}

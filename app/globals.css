@@ -1,0 +1,199 @@
+/* ==========================================================================
+   HOLLERBOSS design system
+   Tokens, base type, and the primitives shared across sections.
+   Section-specific styling lives in each component's .module.css file.
+   ========================================================================== */
+
+:root {
+  /* palette */
+  --kraft: #e4d5b7;
+  --kraft-dark: #cbb98d;
+  --paper: #f1e7cc;
+  --ink: #241d14;
+  --pine: #2b3b24;
+  --rust: #a83f24;
+  --denim: #395164;
+  --gold: #c6912e;
+
+  /* type roles (wired up in app/layout.tsx via next/font) */
+  --font-display: var(--font-anton), "Impact", sans-serif;
+  --font-body: var(--font-lora), Georgia, serif;
+  --font-utility: var(--font-special-elite), "Courier New", monospace;
+
+  /* layout */
+  --wrap: 1120px;
+  --gutter: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--kraft);
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.08), transparent 55%),
+    radial-gradient(ellipse at 85% 90%, rgba(0, 0, 0, 0.06), transparent 60%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.015) 0px,
+      rgba(0, 0, 0, 0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+/* --- primitives ---------------------------------------------------------- */
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  position: relative;
+}
+
+.eyebrow {
+  font-family: var(--font-utility);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.78rem;
+  color: var(--rust);
+}
+
+.btn {
+  font-family: var(--font-utility);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  padding: 13px 24px;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s, color 0.2s;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--paper);
+  border-color: var(--kraft);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4);
+}
+
+.btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* --- section shell ------------------------------------------------------- */
+
+.section {
+  padding: 66px 0;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.sectionHead h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--ink);
+  transform: rotate(-0.6deg);
+  display: inline-block;
+}
+
+.sectionNote {
+  font-family: var(--font-utility);
+  font-size: 0.78rem;
+  color: var(--ink);
+  opacity: 0.65;
+  max-width: 280px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.rule {
+  border: none;
+  border-top: 2px dashed var(--ink);
+  opacity: 0.35;
+  margin: 26px 0 38px;
+}
+
+/* --- accessibility floor -------------------------------------------------- */
+
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  padding: 10px 16px;
+  z-index: 999;
+}
+
+.skipLink:focus {
+  left: 12px;
+  top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .btn {
+    transition: none;
+  }
+}
