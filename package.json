@@ -2,7 +2,7 @@
   "name": "hollerboss",
   "version": "0.1.0",
   "private": true,
-  "description": "HOLLERBOSS \u2014 an Appalachian songbook. Artist encyclopedia, podcast, and goods.",
+  "description": "HOLLERBOSS — an Appalachian songbook. Artist encyclopedia, podcast, and goods.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "15.4.6",
+    "next": "15.4.10",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
