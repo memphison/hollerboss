@@ -19,7 +19,7 @@
 .heading {
   font-size: clamp(2.2rem, 5.5vw, 3.8rem);
   line-height: 0.96;
-  max-width: 16ch;
+  white-space: nowrap;
 }
 
 .lede {
