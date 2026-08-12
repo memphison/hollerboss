@@ -5,6 +5,7 @@ import Encyclopedia from "@/components/Encyclopedia";
 import Shop from "@/components/Shop";
 import JoinList from "@/components/JoinList";
 import Footer from "@/components/Footer";
+import RouteSheet from "@/components/RouteSheet";
 
 export default function Home() {
   return (
@@ -15,6 +16,8 @@ export default function Home() {
         <TornDivider fill="kraft" />
         <Encyclopedia />
         <TornDivider fill="ink" flipped />
+        <RouteSheet />
+        <TornDivider fill="kraft" />
         <Shop />
         <TornDivider fill="kraft" />
         <JoinList />

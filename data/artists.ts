@@ -73,4 +73,14 @@ export const artists: Artist[] = [
       "Traditional bluegrass picking pushed into jam-band territory — reverent to the form, restless with it.",
     startHere: "\u201CDust in a Baggie\u201D",
   },
+{
+  slug: "sierra-ferrell",
+  name: "Sierra Ferrell",
+  tag: "Roots / Americana",
+  home: "Charleston, WV",
+  blurb:
+    "Old-time country, Western swing, and vintage pop filtered through a voice that swings from a whisper to a full-throated belt.",
+  startHere: "\u201CThe Garden\u201D",
+},
+
 ];

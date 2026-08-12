@@ -1,0 +1,401 @@
+/* components/RouteSheet.module.css
+   Matches the tokens set in app/globals.css — kraft/pine/rust/gold palette,
+   Anton display type, Special Elite for utility/data text.
+*/
+
+.section {
+  padding: 72px 0 88px;
+}
+
+.eyebrow {
+  font-family: var(--font-utility);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.78rem;
+  color: var(--rust);
+  margin: 0 0 10px;
+}
+
+.heading {
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  line-height: 0.96;
+  max-width: 16ch;
+}
+
+.lede {
+  max-width: 54ch;
+  margin: 16px 0 0;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: rgba(36, 29, 20, 0.82);
+}
+
+/* ---------- console: the filter bar, styled like a punched ticket ---------- */
+.console {
+  margin: 32px 0 0;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 rgba(36, 29, 20, 0.16);
+  padding: 20px 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 26px;
+  align-items: flex-end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field label {
+  font-family: var(--font-utility);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(36, 29, 20, 0.6);
+}
+
+.field input,
+.field select {
+  font-family: var(--font-utility);
+  font-size: 1rem;
+  padding: 9px 12px;
+  background: #fff;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+  min-width: 150px;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.go:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.zipInput {
+  letter-spacing: 0.22em;
+  width: 130px;
+}
+
+.go {
+  font-family: var(--font-utility);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  background: var(--rust);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 11px 22px;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.go:hover {
+  background: var(--pine);
+  transform: translateY(-1px);
+}
+
+.consoleNote {
+  width: 100%;
+  font-family: var(--font-utility);
+  font-size: 0.72rem;
+  color: rgba(36, 29, 20, 0.55);
+  border-top: 1px dashed var(--kraft-dark);
+  padding-top: 12px;
+  margin: 0;
+}
+
+/* ---------- result tally ---------- */
+.tally {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 28px 0 6px;
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: rgba(36, 29, 20, 0.65);
+}
+
+.tally strong {
+  color: var(--rust);
+}
+
+/* ---------- month rule ---------- */
+.month {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 34px 0 14px;
+}
+
+.month span {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.month::before,
+.month::after {
+  content: "";
+  height: 2px;
+  background: var(--kraft-dark);
+  flex: 1;
+}
+
+.month::before {
+  flex: 0 0 0;
+}
+
+/* ---------- show row: ticket stub ---------- */
+.show {
+  display: grid;
+  grid-template-columns: 78px 1fr auto;
+  align-items: center;
+  gap: 0 22px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  margin-bottom: 10px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.show:hover {
+  transform: translateX(3px);
+  box-shadow: -4px 4px 0 rgba(36, 29, 20, 0.14);
+}
+
+.stub {
+  align-self: stretch;
+  background: var(--pine);
+  color: var(--paper);
+  text-align: center;
+  padding: 14px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  border-right: 2px dashed var(--kraft-dark);
+}
+
+.stub .dow {
+  font-family: var(--font-utility);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  opacity: 0.72;
+}
+
+.stub .day {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.stub .mo {
+  font-family: var(--font-utility);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  opacity: 0.72;
+}
+
+.meat {
+  padding: 14px 0;
+  min-width: 0;
+}
+
+.artistName {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.venueLine {
+  font-size: 0.94rem;
+  color: rgba(36, 29, 20, 0.78);
+  margin-top: 3px;
+}
+
+.venueLine em {
+  font-style: normal;
+  color: var(--denim);
+}
+
+.mapLinks {
+  margin-top: 4px;
+  font-family: var(--font-utility);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.mapLink {
+  color: var(--rust);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.mapLink:hover {
+  border-bottom-color: var(--rust);
+}
+
+.mapLinkDivider {
+  color: rgba(36, 29, 20, 0.35);
+  margin: 0 6px;
+}
+
+.tags {
+  margin-top: 7px;
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-family: var(--font-utility);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 7px;
+  border: 1px solid currentColor;
+}
+
+.tagNew {
+  color: var(--rust);
+}
+.tagSoon {
+  color: var(--denim);
+}
+.tagOut {
+  color: rgba(36, 29, 20, 0.45);
+}
+
+.right {
+  padding: 14px 18px 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.miles {
+  background: var(--pine);
+  color: var(--paper);
+  font-family: var(--font-utility);
+  text-align: center;
+  padding: 6px 9px;
+  border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--pine);
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.miles b {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.miles i {
+  display: block;
+  font-style: normal;
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+  opacity: 0.75;
+}
+
+.tix {
+  font-family: var(--font-utility);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+
+.tix:hover {
+  color: var(--rust);
+  border-color: var(--rust);
+}
+
+.tixDead {
+  color: rgba(36, 29, 20, 0.4);
+  border-color: transparent;
+  cursor: default;
+}
+
+/* ---------- empty state ---------- */
+.empty {
+  border: 2px dashed var(--kraft-dark);
+  padding: 44px 26px;
+  text-align: center;
+}
+
+.empty h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.empty p {
+  margin: 0 auto;
+  max-width: 44ch;
+  color: rgba(36, 29, 20, 0.75);
+}
+
+.fine {
+  margin-top: 26px;
+  font-family: var(--font-utility);
+  font-size: 0.7rem;
+  color: rgba(36, 29, 20, 0.5);
+  line-height: 1.7;
+}
+
+@media (max-width: 720px) {
+  .show {
+    grid-template-columns: 64px 1fr;
+  }
+  .right {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    padding: 0 14px 14px 14px;
+    border-top: 1px dashed var(--kraft-dark);
+    padding-top: 12px;
+  }
+  .meat {
+    padding: 14px 14px 12px 0;
+  }
+  .console {
+    padding: 16px;
+  }
+  .field input,
+  .field select,
+  .zipInput {
+    min-width: 0;
+    width: 100%;
+  }
+  .field {
+    flex: 1 1 140px;
+  }
+  .go {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .show,
+  .go {
+    transition: none;
+  }
+}
