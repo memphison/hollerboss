@@ -29,6 +29,27 @@ export type TicketmasterEvent = {
   };
 };
 
+/** Shape of the slice of Ticketmaster's response we actually consume. */
+type TmApiVenue = {
+  name: string;
+  address?: { line1?: string };
+  city?: { name?: string };
+  state?: { stateCode?: string; name?: string };
+  postalCode?: string;
+  location?: { latitude?: string; longitude?: string };
+};
+
+type TmApiEvent = {
+  name: string;
+  url: string;
+  dates?: { start?: { localDate?: string }; status?: { code?: string } };
+  _embedded?: { venues?: TmApiVenue[] };
+};
+
+type TmApiResponse = { _embedded?: { events?: TmApiEvent[] } };
+
+
+
 const BLOCKLIST_TERMS = ["tribute", "experience", "salute", "cover band", "as performed by"];
 
 /** Catches tribute/cover acts that put the real artist's name in their own show title. */
@@ -57,7 +78,7 @@ export async function fetchArtistEvents(artistName: string): Promise<Ticketmaste
     throw new Error(`Ticketmaster request failed (${res.status}) for "${artistName}"`);
   }
 
-  const data = await res.json();
+  const data = (await res.json()) as TmApiResponse;
   const events = data._embedded?.events ?? [];
 
   return events
@@ -92,5 +113,5 @@ export async function fetchArtistEvents(artistName: string): Promise<Ticketmaste
         },
       };
     })
-    .filter((e: TicketmasterEvent | null): e is TicketmasterEvent => e !== null);
+    .filter((e): e is TicketmasterEvent => e !== null);
 }
