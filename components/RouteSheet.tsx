@@ -36,6 +36,13 @@ type LiveShow = {
   status: string;
 };
 
+type ArtistOption = { slug: string; name: string };
+
+type ShowsResponse = {
+  shows: LiveShow[];
+  artists: ArtistOption[];
+};
+
 function haversineMiles(a: [number, number], b: [number, number]): number {
   const toRad = (d: number) => (d * Math.PI) / 180;
   const R = 3958.8;
@@ -58,6 +65,7 @@ function googleMapsLink(venue: { name: string; address?: string }) {
 
 export default function RouteSheet() {
   const [shows, setShows] = useState<LiveShow[]>([]);
+  const [allArtists, setAllArtists] = useState<ArtistOption[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
@@ -68,9 +76,10 @@ export default function RouteSheet() {
         if (!res.ok) throw new Error(`Request failed (${res.status})`);
         return res.json();
       })
-      .then((data: LiveShow[]) => {
+      .then((data: ShowsResponse) => {
         if (cancelled) return;
-        setShows(data);
+        setShows(data.shows);
+        setAllArtists(data.artists);
         setLoading(false);
       })
       .catch((err) => {
@@ -89,10 +98,14 @@ export default function RouteSheet() {
   const [artistSlug, setArtistSlug] = useState("");
   const [origin, setOrigin] = useState<[number, number] | null>(null);
   const [zipError, setZipError] = useState<string | null>(null);
+  // Tracks whether the person has actually submitted a search yet —
+  // without this, an empty zip field on first load would fall through
+  // to the "Quiet out there" empty state, which is misleading (it
+  // reads as "nobody has shows" when really nobody has searched).
+  const [hasSearched, setHasSearched] = useState(false);
 
-  // Resolve the typed zip using the bundled Census lookup (lib/distance.ts) —
-  // same one confirmed working earlier, no external call needed.
   function runSearch() {
+    setHasSearched(true);
     const clean = zip.trim();
     const coords = coordsForZip(clean);
     if (!coords) {
@@ -104,19 +117,15 @@ export default function RouteSheet() {
     setOrigin(coords);
   }
 
-  // run once on mount with the default zip
-  useEffect(() => {
-  if (zip) runSearch();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-
+  // The dropdown lists every HOLLERBOSS-tracked artist (calendar=YES
+  // in the sheet), not just ones with a show booked right now — an
+  // artist between tours (e.g. Colter Wall) should still be pickable,
+  // distinct from an artist excluded entirely (e.g. Loretta Lynn,
+  // calendar=NO). Comes straight from the API now rather than being
+  // derived from `shows`.
   const scheduledArtists = useMemo(() => {
-    const seen = new Map<string, string>();
-    shows.forEach((s) => seen.set(s.artistSlug, s.artistName));
-    return [...seen.entries()]
-      .map(([slug, name]) => ({ slug, name }))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, [shows]);
+    return [...allArtists].sort((a, b) => a.name.localeCompare(b.name));
+  }, [allArtists]);
 
   const results = useMemo(() => {
     if (!origin) return [];
@@ -126,6 +135,14 @@ export default function RouteSheet() {
       .filter((s) => s.miles <= radius)
       .sort((a, b) => a.date.localeCompare(b.date));
   }, [shows, origin, radius, artistSlug]);
+
+  // Distinguishes "this specific artist has nothing booked anywhere
+  // right now" from "nothing nearby within the chosen radius" — the
+  // former isn't fixed by widening the radius, so it gets its own
+  // message rather than the generic "widen the radius" copy.
+  const selectedArtistHasNoShowsAtAll =
+    !!artistSlug && !shows.some((s) => s.artistSlug === artistSlug);
+  const selectedArtistName = allArtists.find((a) => a.slug === artistSlug)?.name;
 
   const grouped: { key: string; rows: typeof results }[] = [];
   for (const row of results) {
@@ -197,7 +214,7 @@ export default function RouteSheet() {
             <h3>Couldn&apos;t load the schedule</h3>
             <p>{loadError}</p>
           </div>
-        ) : (
+        ) : !hasSearched ? null : (
           <>
             <div className={styles.tally}>
               <div>
@@ -216,8 +233,11 @@ export default function RouteSheet() {
               <div className={styles.empty}>
                 <h3>Quiet out there</h3>
                 <p>
-                  {zipError ??
-                    `Nobody on the list is booked within ${radius === 9999 ? "range" : `${radius} miles`} of ${zip} yet. Widen the radius, or check back later.`}
+                  {zipError
+                    ? zipError
+                    : selectedArtistHasNoShowsAtAll
+                    ? `${selectedArtistName ?? "This artist"} doesn't have any shows booked right now. Check back soon.`
+                    : `Nobody on the list is booked within ${radius === 9999 ? "range" : `${radius} miles`} of ${zip} yet. Widen the radius, or check back later.`}
                 </p>
               </div>
             ) : (
@@ -229,7 +249,10 @@ export default function RouteSheet() {
                   {g.rows.map((row) => {
                     const dt = new Date(row.date + "T12:00:00");
                     return (
-                      <article className={styles.show} key={row.date + row.venueName + row.artistSlug}>
+                      <article
+                        className={styles.show}
+                        key={row.date + row.venueName + row.artistSlug}
+                      >
                         <div className={styles.stub}>
                           <span className="dow">{DOW[dt.getDay()]}</span>
                           <span className="day">{dt.getDate()}</span>

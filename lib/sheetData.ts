@@ -9,6 +9,8 @@
 import { parseCSV } from "@/lib/csv";
 import { SHEET_URLS } from "@/lib/sheetsConfig";
 
+export type TicketSource = "TM" | "EB";
+
 export type Artist = {
   slug: string;
   name: string;
@@ -17,6 +19,7 @@ export type Artist = {
   blurb: string;
   startHere: string;
   calendar: boolean;
+  ticketSource: TicketSource;
 };
 
 export type Venue = {
@@ -59,6 +62,11 @@ export async function fetchArtists(): Promise<Artist[]> {
     blurb: r.blurb,
     startHere: r.startHere,
     calendar: (r.calendar || "").trim().toUpperCase() === "YES",
+    // Defaults to TM (Ticketmaster) for any blank/unrecognized value,
+    // so a typo or empty cell fails safe into the self-serve API
+    // rather than silently routing an artist into the manual-sheet
+    // path where they'd show nothing without anyone noticing.
+    ticketSource: (r.ticketSource || "").trim().toUpperCase() === "EB" ? "EB" : "TM",
   }));
 }
 
