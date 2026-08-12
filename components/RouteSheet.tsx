@@ -229,7 +229,7 @@ export default function RouteSheet() {
                   {g.rows.map((row) => {
                     const dt = new Date(row.date + "T12:00:00");
                     return (
-                      <article className={styles.show} key={row.date + row.venueName}>
+                      <article className={styles.show} key={row.date + row.venueName + row.artistSlug}>
                         <div className={styles.stub}>
                           <span className="dow">{DOW[dt.getDay()]}</span>
                           <span className="day">{dt.getDate()}</span>
