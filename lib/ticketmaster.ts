@@ -82,7 +82,7 @@ export async function fetchArtistEvents(artistName: string): Promise<Ticketmaste
   const events = data._embedded?.events ?? [];
 
   return events
-    .map((e: any): TicketmasterEvent | null => {
+    .map((e): TicketmasterEvent | null => {
       const venue = e._embedded?.venues?.[0];
       const localDate = e.dates?.start?.localDate;
       if (!venue || !localDate || !venue.location) return null;
