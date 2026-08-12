@@ -34,6 +34,7 @@ export type LiveShow = {
 export async function GET() {
   try {
     const artists = await fetchArtists();
+    const trackedArtists = artists.filter((a) => a.calendar);
 
     const perArtist = await Promise.all(
       artists.map(async (artist) => {

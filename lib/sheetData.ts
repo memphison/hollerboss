@@ -16,6 +16,7 @@ export type Artist = {
   home: string;
   blurb: string;
   startHere: string;
+  calendar: boolean;
 };
 
 export type Venue = {
@@ -57,6 +58,7 @@ export async function fetchArtists(): Promise<Artist[]> {
     home: r.home,
     blurb: r.blurb,
     startHere: r.startHere,
+    calendar: (r.calendar || "").trim().toUpperCase() === "YES",
   }));
 }
 
