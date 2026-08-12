@@ -84,7 +84,7 @@ export default function RouteSheet() {
     };
   }, []);
 
-  const [zip, setZip] = useState("10001");
+  const [zip, setZip] = useState("");
   const [radius, setRadius] = useState(250);
   const [artistSlug, setArtistSlug] = useState("");
   const [origin, setOrigin] = useState<[number, number] | null>(null);
@@ -106,9 +106,9 @@ export default function RouteSheet() {
 
   // run once on mount with the default zip
   useEffect(() => {
-    runSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  if (zip) runSearch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   const scheduledArtists = useMemo(() => {
     const seen = new Map<string, string>();
