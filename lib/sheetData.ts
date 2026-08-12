@@ -9,7 +9,7 @@
 import { parseCSV } from "@/lib/csv";
 import { SHEET_URLS } from "@/lib/sheetsConfig";
 
-export type TicketSource = "TM" | "EB";
+export type TicketSource = "TM" | "EB" | "SE";
 
 export type Artist = {
   slug: string;
@@ -65,8 +65,14 @@ export async function fetchArtists(): Promise<Artist[]> {
     // Defaults to TM (Ticketmaster) for any blank/unrecognized value,
     // so a typo or empty cell fails safe into the self-serve API
     // rather than silently routing an artist into the manual-sheet
-    // path where they'd show nothing without anyone noticing.
-    ticketSource: (r.ticketSource || "").trim().toUpperCase() === "EB" ? "EB" : "TM",
+    // path where they'd show nothing without anyone noticing. Known
+    // manual-source codes (EB, SE) are recognized explicitly; add new
+    // ones here as new providers come up — route.ts itself doesn't
+    // need to change, since it treats anything non-"TM" as manual.
+    ticketSource: (() => {
+      const raw = (r.ticketSource || "").trim().toUpperCase();
+      return raw === "EB" || raw === "SE" ? raw : "TM";
+    })(),
   }));
 }
 

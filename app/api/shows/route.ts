@@ -134,7 +134,7 @@ export async function GET() {
     // Only fetch the manual sheets if at least one tracked artist
     // actually needs them — avoids two unnecessary requests on
     // deployments where every artist is TM-sourced.
-    const needsSheetShows = trackedArtists.some((a) => a.ticketSource === "EB");
+    const needsSheetShows = trackedArtists.some((a) => a.ticketSource !== "TM");
     const [allSheetShows, allVenues] = needsSheetShows
       ? await Promise.all([fetchShows(), fetchVenues()])
       : [[], []];
@@ -142,7 +142,7 @@ export async function GET() {
 
     const perArtist = await Promise.all(
       trackedArtists.map(async (artist) => {
-        if (artist.ticketSource === "EB") {
+        if (artist.ticketSource !== "TM") {
           return buildSheetShows(artist, allSheetShows, venuesBySlug);
         }
         return fetchTicketmasterShows(artist);
