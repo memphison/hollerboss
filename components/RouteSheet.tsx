@@ -242,7 +242,7 @@ export default function RouteSheet() {
                           </div>
                           <div className={styles.mapLinks}>
                             <a
-                              href={googleMapsLink(row)}
+                              href={googleMapsLink({ name: row.venueName, address: row.address })}
                               target="_blank"
                               rel="noreferrer"
                               className={styles.mapLink}
@@ -251,7 +251,7 @@ export default function RouteSheet() {
                             </a>
                             <span className={styles.mapLinkDivider}>·</span>
                             <a
-                              href={appleMapsLink(row)}
+                              href={appleMapsLink({ name: row.venueName, lat: row.lat, lng: row.lng })}
                               target="_blank"
                               rel="noreferrer"
                               className={styles.mapLink}
