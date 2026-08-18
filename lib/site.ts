@@ -15,7 +15,7 @@ export const site = {
     { label: "Instagram", href: "https://instagram.com/hollerboss" },
     { label: "TikTok", href: "https://tiktok.com/@hollerboss" },
     { label: "YouTube", href: "https://www.youtube.com/@Hollerboss" },
-    { label: "Facebook", href: "https://https://www.facebook.com/hollerbossofficial" },
+    { label: "Facebook", href: "https://www.facebook.com/hollerbossofficial" },
   ],
   nav: [
     { label: "Encyclopedia", href: "/encyclopedia" },
