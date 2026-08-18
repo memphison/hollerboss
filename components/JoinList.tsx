@@ -45,7 +45,7 @@ export default function JoinList() {
           <h2>We&apos;re Just Getting Started</h2>
           <p>
             Join the list for the first hat drop, new encyclopedia entries, and whatever
-            else we build in this holler. No spam — we barely have a site yet.
+            else we build in this holler. No spam, ever.
           </p>
           <form className={styles.form} onSubmit={handleSubmit}>
             <input
