@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { site } from "@/lib/site";
 import styles from "./Hero.module.css";
 
@@ -37,7 +38,16 @@ export default function Hero() {
 
       <div className={`wrap ${styles.inner}`}>
         <p className="eyebrow">— an appalachian songbook —</p>
-        <h1 className={styles.wordmarkHero}>{site.name}</h1>
+        <h1 className={styles.wordmarkHero}>
+          <Image
+            src="/images/logo_neutral_trim.png"
+            alt={site.name}
+            width={1837}
+            height={389}
+            priority
+            sizes="(min-width: 760px) 680px, 88vw"
+          />
+        </h1>
         <p className={styles.tagline}>
           From Tyler Childers to the deep cut nobody&apos;s told you about yet — every
           artist carrying this music forward, the songs to start on, and the noise to

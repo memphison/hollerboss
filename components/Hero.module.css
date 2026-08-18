@@ -35,20 +35,17 @@
 /* The wordmark scales with the viewport and never breaks across lines. */
 .wordmarkHero {
   display: block;
-  white-space: nowrap;
-  font-size: 14vw;
-  line-height: 0.86;
-  margin-top: 8px;
-  color: var(--paper);
+  margin-top: 14px;
+  margin-left: -8px;
   transform: rotate(-1.2deg);
   transform-origin: left center;
-  text-shadow: 2px 2px 0 var(--rust), 4px 4px 0 rgba(0, 0, 0, 0.35);
 }
 
-@media (min-width: 760px) {
-  .wordmarkHero {
-    font-size: min(14vw, 7.2rem);
-  }
+.wordmarkHero img {
+  display: block;
+  width: min(88vw, 680px);
+  height: auto;
+  filter: drop-shadow(2px 2px 0 var(--rust)) drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.35));
 }
 
 .tagline {
