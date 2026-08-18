@@ -161,7 +161,7 @@ export default function RouteSheet() {
         <p className={styles.lede}>
           Nothing stings like hearing they played twenty minutes down the road last
           Thursday. Drop your zip in and we&apos;ll tell you who&apos;s headed your way.
-          Double check with the artist's site before you pack up the dogs and head that way, mistakes can happen.
+          Double check with the artist&apos;s site before you pack up the dogs and head that way, mistakes can happen.
         </p>
 
         <div className={styles.console}>
