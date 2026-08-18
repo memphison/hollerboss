@@ -66,13 +66,15 @@ export default function JoinList() {
               {status === "sending" ? "Sending…" : "Join the list"}
             </button>
           </form>
-          <p
-            className={`${styles.message} ${status === "error" ? styles.error : ""}`}
-            role="status"
-            aria-live="polite"
-          >
-            {message}
-          </p>
+          {message && (
+            <p
+              className={`${styles.message} ${status === "error" ? styles.error : ""}`}
+              role="status"
+              aria-live="polite"
+            >
+              {message}
+            </p>
+          )}
         </div>
       </div>
     </section>
