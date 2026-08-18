@@ -20,7 +20,34 @@ export type Artist = {
   startHere: string;
   calendar: boolean;
   ticketSource: TicketSource;
+  // Encyclopedia-page fields. All optional/degrade-gracefully since older
+  // sheet rows may not have these columns filled in yet.
+  photoUrl?: string;
+  quote?: string;
+  bio: string[]; // sheet column separates paragraphs with "||"
+  whyItPasses: string[]; // sheet column separates bullets with "|"
+  essentialSongs: string[]; // sheet column separates titles with "|" (no durations stored)
+  spotifyUrl?: string;
+  lat?: number;
+  lng?: number;
+  relatedSlugs: string[]; // sheet column is comma-separated slugs
 };
+
+/** Splits a delimited sheet cell into trimmed, non-empty pieces. */
+function splitList(value: string | undefined, separator: string): string[] {
+  if (!value) return [];
+  return value
+    .split(separator)
+    .map((piece) => piece.trim())
+    .filter(Boolean);
+}
+
+/** Parses a sheet cell as a finite number, or undefined if blank/invalid. */
+function parseNumber(value: string | undefined): number | undefined {
+  if (!value) return undefined;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : undefined;
+}
 
 export type Venue = {
   slug: string;
@@ -73,6 +100,15 @@ export async function fetchArtists(): Promise<Artist[]> {
       const raw = (r.ticketSource || "").trim().toUpperCase();
       return raw === "EB" || raw === "SE" ? raw : "TM";
     })(),
+    photoUrl: r.photoUrl || undefined,
+    quote: r.quote || undefined,
+    bio: splitList(r.bio, "||"),
+    whyItPasses: splitList(r.whyItPasses, "|"),
+    essentialSongs: splitList(r.essentialSongs, "|"),
+    spotifyUrl: r.spotifyUrl || undefined,
+    lat: parseNumber(r.lat),
+    lng: parseNumber(r.lng),
+    relatedSlugs: splitList(r.relatedSlugs, ","),
   }));
 }
 

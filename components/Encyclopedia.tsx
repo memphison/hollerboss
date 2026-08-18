@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { artists } from "@/data/artists";
 import ArtistCard from "./ArtistCard";
 import styles from "./Encyclopedia.module.css";
@@ -23,7 +24,7 @@ export default function Encyclopedia() {
           ))}
         </div>
         <div className={styles.more}>
-          <a href="#join">This list is one page long right now — help us build the rest →</a>
+          <Link href="/encyclopedia">Browse the full encyclopedia →</Link>
         </div>
       </div>
     </section>

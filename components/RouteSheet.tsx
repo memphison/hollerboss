@@ -9,7 +9,8 @@
 
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { coordsForZip } from "@/lib/distance";
 import styles from "./RouteSheet.module.css";
 
@@ -98,6 +99,26 @@ export default function RouteSheet() {
   const [artistSlug, setArtistSlug] = useState("");
   const [origin, setOrigin] = useState<[number, number] | null>(null);
   const [zipError, setZipError] = useState<string | null>(null);
+
+  // Lets a link like /route-sheet?artist=tyler-childers (e.g. from an
+  // artist's encyclopedia page) arrive with that artist preselected.
+  // Applied once, against the real artist list, so it doesn't fight
+  // with the person changing the dropdown afterward. When it does apply,
+  // it also autofocuses the zip input — the artist's chosen, so the zip
+  // is the obvious next thing to type — but only in that case, not on a
+  // plain /route-sheet visit.
+  const searchParams = useSearchParams();
+  const appliedInitialArtist = useRef(false);
+  const zipInputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (appliedInitialArtist.current || allArtists.length === 0) return;
+    const requested = searchParams.get("artist");
+    if (requested && allArtists.some((a) => a.slug === requested)) {
+      setArtistSlug(requested);
+      zipInputRef.current?.focus();
+    }
+    appliedInitialArtist.current = true;
+  }, [allArtists, searchParams]);
   // Tracks whether the person has actually submitted a search yet —
   // without this, an empty zip field on first load would fall through
   // to the "Quiet out there" empty state, which is misleading (it
@@ -159,9 +180,20 @@ export default function RouteSheet() {
         <p className={styles.eyebrow}>The Route Sheet</p>
         <h2 className={styles.heading}>Who&apos;s coming through</h2>
         <p className={styles.lede}>
-          Nothing stings like hearing they played twenty minutes down the road last
-          Thursday. Drop your zip in and we&apos;ll tell you who&apos;s headed your way.
-          Double check with the artist&apos;s site before you pack up the dogs and head that way, mistakes can happen.
+          {selectedArtistName ? (
+            <>
+              Drop your zip and we&apos;ll tell you if {selectedArtistName} is headed your
+              way. Double check with the artist&apos;s site before you pack up the dogs and
+              head that way, mistakes can happen.
+            </>
+          ) : (
+            <>
+              Nothing stings like hearing they played twenty minutes down the road last
+              Thursday. Drop your zip in and we&apos;ll tell you who&apos;s headed your way.
+              Double check with the artist&apos;s site before you pack up the dogs and head
+              that way, mistakes can happen.
+            </>
+          )}
         </p>
 
         <div className={styles.console}>
@@ -169,6 +201,7 @@ export default function RouteSheet() {
             <label htmlFor="rs-zip">Your zip code</label>
             <input
               id="rs-zip"
+              ref={zipInputRef}
               className={styles.zipInput}
               value={zip}
               onChange={(e) => setZip(e.target.value)}

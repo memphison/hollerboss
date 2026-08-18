@@ -5,7 +5,15 @@ import styles from "./JoinList.module.css";
 
 type Status = "idle" | "sending" | "done" | "error";
 
-export default function JoinList() {
+type JoinListProps = {
+  heading?: string;
+  copy?: string;
+};
+
+export default function JoinList({
+  heading = "We're Just Getting Started",
+  copy = "Join the list for the first hat drop, new encyclopedia entries, and whatever else we build in this holler. No spam, ever.",
+}: JoinListProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
@@ -42,11 +50,8 @@ export default function JoinList() {
     <section id="join" className="section">
       <div className="wrap">
         <div className={styles.join}>
-          <h2>We&apos;re Just Getting Started</h2>
-          <p>
-            Join the list for the first hat drop, new encyclopedia entries, and whatever
-            else we build in this holler. No spam, ever.
-          </p>
+          <h2>{heading}</h2>
+          <p>{copy}</p>
           <form className={styles.form} onSubmit={handleSubmit}>
             <input
               className={styles.input}

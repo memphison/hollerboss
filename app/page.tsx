@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import TornDivider from "@/components/TornDivider";
@@ -16,7 +17,9 @@ export default function Home() {
         <TornDivider fill="kraft" />
         <Encyclopedia />
         <TornDivider fill="ink" flipped />
-        <RouteSheet />
+        <Suspense fallback={null}>
+          <RouteSheet />
+        </Suspense>
         <TornDivider fill="kraft" />
         <Shop />
         <TornDivider fill="kraft" />

@@ -20,14 +20,28 @@
   }
 }
 
-/* Field-note card: torn from a Foxfire anthology and taped to the page. */
+/* Field-note card: torn from a Foxfire anthology and taped to the page.
+   It's a <Link>, so it needs block layout and its own text/focus styling
+   on top of what a bare <article> would've gotten for free. */
 .card {
+  display: block;
   background: var(--paper);
   color: var(--ink);
+  text-decoration: none;
   padding: 20px 18px 18px;
   position: relative;
   border: 1px solid rgba(36, 29, 20, 0.15);
   box-shadow: 4px 5px 0 rgba(36, 29, 20, 0.18);
+  transition: box-shadow 0.12s ease;
+}
+
+.card:hover {
+  box-shadow: 6px 7px 0 rgba(36, 29, 20, 0.22);
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
 }
 
 .card:nth-child(3n + 1) {

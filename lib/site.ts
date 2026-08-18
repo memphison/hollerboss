@@ -14,13 +14,14 @@ export const site = {
   socials: [
     { label: "Instagram", href: "https://instagram.com/hollerboss" },
     { label: "TikTok", href: "https://tiktok.com/@hollerboss" },
-    { label: "YouTube", href: "https://youtube.com/@hollerboss" },
-    { label: "Facebook", href: "https://facebook.com/hollerboss" },
+    { label: "YouTube", href: "https://www.youtube.com/@Hollerboss" },
+    { label: "Facebook", href: "https://https://www.facebook.com/hollerbossofficial" },
   ],
   nav: [
-    { label: "Encyclopedia", href: "#encyclopedia" },
-    { label: "Shop", href: "#shop" },
-    { label: "Join", href: "#join" },
+    { label: "Encyclopedia", href: "/encyclopedia" },
+    { label: "Route Sheet", href: "/route-sheet" },
+    { label: "Shop", href: "/#shop" },
+    { label: "Join", href: "/#join" },
   ],
   hat: {
     name: "The HOLLERBOSS Trucker Hat",

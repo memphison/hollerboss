@@ -1,9 +1,10 @@
+import Link from "next/link";
 import type { Artist } from "@/data/artists";
 import styles from "./Encyclopedia.module.css";
 
 export default function ArtistCard({ artist }: { artist: Artist }) {
   return (
-    <article className={styles.card}>
+    <Link href={`/encyclopedia/${artist.slug}`} className={styles.card}>
       <span className={styles.tag}>{artist.tag}</span>
       <h3>{artist.name}</h3>
       <div className={styles.home}>{artist.home}</div>
@@ -12,6 +13,6 @@ export default function ArtistCard({ artist }: { artist: Artist }) {
         <span>Start here</span>
         <b>{artist.startHere}</b>
       </div>
-    </article>
+    </Link>
   );
 }
