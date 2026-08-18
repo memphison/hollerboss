@@ -52,9 +52,8 @@ export default function Hero() {
           />
         </h1>
         <p className={styles.tagline}>
-          From Tyler Childers to the deep cut nobody&apos;s told you about yet — every
-          artist carrying this music forward, the songs to start on, and the noise to
-          tune out.
+          
+Songs shaped by mountains and mandolins, front porches, and generations of tradition. Every artist carrying this music forward, the songs to start on, the deep cut nobody&apos;s told you about yet, and the noise to tune out.
         </p>
         <div className={styles.ctaRow}>
           <a href="#encyclopedia" className="btn btn-primary">

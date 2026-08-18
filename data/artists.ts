@@ -26,7 +26,7 @@ export const artists: Artist[] = [
     home: "Lawrence County, KY",
     blurb:
       "Storytelling built on old-time bones — church, coal, love, and hell all in the same verse.",
-    startHere: "\u201CFeathered Indians\u201D",
+    startHere: "“Feathered Indians”",
   },
   {
     slug: "sturgill-simpson",
@@ -35,16 +35,16 @@ export const artists: Artist[] = [
     home: "Jackson, KY",
     blurb:
       "Bluegrass upbringing filtered through psychedelic outlaw country — never makes the same record twice.",
-    startHere: "\u201CTurtles All the Way Down\u201D",
+    startHere: "“Turtles All the Way Down”",
   },
   {
-    slug: "sg-goodman",
-    name: "S.G. Goodman",
-    tag: "Roots / Rock",
-    home: "Hickman County, KY",
+    slug: "sierra-ferrell",
+    name: "Sierra Ferrell",
+    tag: "Roots / Americana",
+    home: "Charleston, WV",
     blurb:
-      "Farm-raised voice with a rock edge — plainspoken lyrics about home, faith, and who gets left out of it.",
-    startHere: "\u201CSpace and Time\u201D",
+      "Old-time country, Western swing, and vintage pop filtered through a voice that swings from a whisper to a full-throated belt.",
+    startHere: "“The Garden”",
   },
   {
     slug: "charles-wesley-godwin",
@@ -53,7 +53,7 @@ export const artists: Artist[] = [
     home: "Morgantown, WV",
     blurb:
       "West Virginia coal-country songs with a full-band roar — mountains as main character, not backdrop.",
-    startHere: "\u201CCoal Country\u201D",
+    startHere: "“Coal Country”",
   },
   {
     slug: "chris-stapleton",
@@ -62,7 +62,7 @@ export const artists: Artist[] = [
     home: "Johnson County, KY",
     blurb:
       "A Nashville songwriter's pen with a soul singer's voice — the bridge between the holler and the mainstream.",
-    startHere: "\u201CTennessee Whiskey\u201D",
+    startHere: "“Tennessee Whiskey”",
   },
   {
     slug: "billy-strings",
@@ -71,16 +71,6 @@ export const artists: Artist[] = [
     home: "Touring flatpicker",
     blurb:
       "Traditional bluegrass picking pushed into jam-band territory — reverent to the form, restless with it.",
-    startHere: "\u201CDust in a Baggie\u201D",
+    startHere: "“Dust in a Baggie”",
   },
-{
-  slug: "sierra-ferrell",
-  name: "Sierra Ferrell",
-  tag: "Roots / Americana",
-  home: "Charleston, WV",
-  blurb:
-    "Old-time country, Western swing, and vintage pop filtered through a voice that swings from a whisper to a full-throated belt.",
-  startHere: "\u201CThe Garden\u201D",
-},
-
 ];
