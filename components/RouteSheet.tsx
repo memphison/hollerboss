@@ -160,8 +160,8 @@ export default function RouteSheet() {
         <h2 className={styles.heading}>Who&apos;s coming through</h2>
         <p className={styles.lede}>
           Nothing stings like hearing they played twenty minutes down the road last
-          Thursday. Drop your zip in and we&apos;ll tell you who&apos;s headed your way —
-          pulled live from tour listings for the artists we track.
+          Thursday. Drop your zip in and we&apos;ll tell you who&apos;s headed your way.
+          Double check with the artist's site before you pack up the dogs and head that way, mistakes can happen.
         </p>
 
         <div className={styles.console}>
