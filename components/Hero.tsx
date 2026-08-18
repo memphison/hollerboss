@@ -5,6 +5,8 @@ import styles from "./Hero.module.css";
 export default function Hero() {
   return (
     <header className={styles.hero} id="top">
+      <div className={styles.overlay} aria-hidden="true" />
+      {/* Topographic dot/contour overlay — disabled per Jenn/Martin request, keep for possible reinstatement.
       <div className={styles.halftone} aria-hidden="true" />
       <svg
         className={styles.ridge}
@@ -35,6 +37,7 @@ export default function Hero() {
           opacity="0.5"
         />
       </svg>
+      */}
 
       <div className={`wrap ${styles.inner}`}>
         <p className="eyebrow">— an appalachian songbook —</p>
