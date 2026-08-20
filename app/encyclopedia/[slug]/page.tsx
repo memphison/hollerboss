@@ -59,12 +59,12 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
   // no point hitting Ticketmaster/the shows sheet for data that won't
   // render.
   //
-  // For everyone else: a single artist's Ticketmaster call failing (rate
-  // limit, timeout, etc.) rejects fetchLiveShows() for every artist, since
-  // it fetches the whole tracked roster in one batch. That shouldn't take
-  // down this artist's whole page over a "Coming through" card — fail
-  // soft into the same empty state ArtistBody already shows when nothing's
-  // booked.
+  // For everyone else: fetchLiveShows() already isolates per-artist
+  // Ticketmaster failures (see lib/liveShows.ts), so this try/catch is
+  // just defense against fetchLiveShows() itself failing outright (e.g.
+  // the artist sheet being unreachable) — fail soft into the same empty
+  // state ArtistBody already shows when nothing's booked, rather than
+  // 500ing the whole page over a "Coming through" card.
   let upcomingShows: Awaited<ReturnType<typeof fetchLiveShows>>["shows"] = [];
   if (artist.calendar) {
     try {

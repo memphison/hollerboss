@@ -138,7 +138,14 @@ export async function fetchLiveShows(): Promise<LiveShowsResult> {
     : [[], []];
   const venuesBySlug = new Map(allVenues.map((v) => [v.slug, v]));
 
-  const perArtist = await Promise.all(
+  // Promise.all would let one artist's Ticketmaster call (rate limit,
+  // timeout, whatever) reject the entire batch — every other artist's
+  // shows disappear along with it, on both the Route Sheet and any artist
+  // page's "Coming through" card. allSettled isolates each artist's fetch
+  // so a single failure just drops that one artist's shows for this
+  // request (they're back once the next fetch succeeds) instead of
+  // taking everyone else down with it.
+  const settled = await Promise.allSettled(
     trackedArtists.map(async (artist) => {
       if (artist.ticketSource !== "TM") {
         return buildSheetShows(artist, allSheetShows, venuesBySlug);
@@ -146,6 +153,12 @@ export async function fetchLiveShows(): Promise<LiveShowsResult> {
       return fetchTicketmasterShows(artist);
     })
   );
+
+  const perArtist = settled.map((result, i) => {
+    if (result.status === "fulfilled") return result.value;
+    console.error(`Failed to load shows for ${trackedArtists[i].slug}:`, result.reason);
+    return [];
+  });
 
   const shows = perArtist.flat().sort((a, b) => a.date.localeCompare(b.date));
 
