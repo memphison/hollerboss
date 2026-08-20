@@ -35,11 +35,13 @@ export default function ArtistBody({
                 <p className={styles.cardEyebrow}>HOLLERBOSS Voice</p>
                 <h3 className={styles.cardHeading}>The Voice of the People</h3>
                 <p className={styles.cardText}>{artist.blurb}</p>
+                {/* approval stamp — liked it, but it doesn't fit here. Keeping for reuse elsewhere.
                 <div className={styles.stamp} aria-hidden="true">
                   <span>Appalachian</span>
                   <strong>HB</strong>
                   <span>Approved</span>
                 </div>
+                */}
               </article>
             )}
 
@@ -91,85 +93,95 @@ export default function ArtistBody({
           </div>
         )}
 
-        <div className={styles.cardRow}>
-          <article className={`${styles.card} ${styles.cardWide}`}>
-            <p className={styles.cardEyebrow}>Coming through</p>
-            <h3 className={styles.cardHeading}>Next shows on the Route Sheet</h3>
-            {upcomingShows.length === 0 ? (
-              <p className={styles.cardText}>
-                {artist.name} doesn&apos;t have any shows booked right now. Check back soon.
-              </p>
-            ) : (
-              <ul className={styles.showList}>
-                {upcomingShows.map((show) => {
-                  const { month, day } = formatShowDate(show.date);
-                  return (
-                    <li key={show.date + show.venueName}>
-                      <span className={styles.showDate}>
-                        {month} {day}
-                      </span>
-                      <span>
-                        <span className={styles.showVenue}>{show.venueName}</span>
-                        <span className={styles.showCity}>
-                          {show.city}, {show.state}
+        {/*
+          calendar=NO means this artist isn't being tracked for shows at
+          all (see lib/liveShows.ts) — most of the time because they're no
+          longer touring, sometimes because they're no longer living. Either
+          way, "doesn't have any shows booked right now, check back soon"
+          reads badly, so the whole card is suppressed rather than shown
+          with an empty state.
+        */}
+        {artist.calendar && (
+          <div className={styles.cardRow}>
+            <article className={`${styles.card} ${styles.cardWide}`}>
+              <p className={styles.cardEyebrow}>Coming through</p>
+              <h3 className={styles.cardHeading}>Next shows on the Route Sheet</h3>
+              {upcomingShows.length === 0 ? (
+                <p className={styles.cardText}>
+                  {artist.name} doesn&apos;t have any shows booked right now. Check back soon.
+                </p>
+              ) : (
+                <ul className={styles.showList}>
+                  {upcomingShows.map((show) => {
+                    const { month, day } = formatShowDate(show.date);
+                    return (
+                      <li key={show.date + show.venueName}>
+                        <span className={styles.showDate}>
+                          {month} {day}
                         </span>
-                      </span>
-                    </li>
-                  );
-                })}
+                        <span>
+                          <span className={styles.showVenue}>{show.venueName}</span>
+                          <span className={styles.showCity}>
+                            {show.city}, {show.state}
+                          </span>
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+              <Link
+                href={`/route-sheet?artist=${artist.slug}`}
+                className={`btn ${styles.ghostBtn} ${styles.routeBtn}`}
+              >
+                View full Route Sheet
+              </Link>
+            </article>
+
+            {/*
+              TODO: "Key Records" / discography card — not backed by real data
+              yet. Would need a Discography sheet/tab (artist slug, album
+              title, year, type, cover image URL) joined in here the same
+              way essentialSongs/whyItPasses are parsed today.
+
+            <article className={`${styles.card} ${styles.cardWide}`}>
+              <p className={styles.cardEyebrow}>Key records</p>
+              <h3 className={styles.cardHeading}>Discography</h3>
+              <ul className={styles.discography}>
+                {artist.discography.map((record) => (
+                  <li key={record.title}>
+                    <img src={record.coverUrl} alt="" />
+                    <div>
+                      <strong>{record.title}</strong>
+                      <span>{record.year} · {record.type}</span>
+                    </div>
+                  </li>
+                ))}
               </ul>
-            )}
-            <Link
-              href={`/route-sheet?artist=${artist.slug}`}
-              className={`btn ${styles.ghostBtn} ${styles.routeBtn}`}
-            >
-              View full Route Sheet
-            </Link>
-          </article>
+              <a href={`/encyclopedia/${artist.slug}/discography`} className="btn btn-ghost-dark">
+                View full discography
+              </a>
+            </article>
+            */}
 
-          {/*
-            TODO: "Key Records" / discography card — not backed by real data
-            yet. Would need a Discography sheet/tab (artist slug, album
-            title, year, type, cover image URL) joined in here the same
-            way essentialSongs/whyItPasses are parsed today.
+            {/*
+              TODO: "Appalachian Coordinates" map card — lat/lng columns now
+              exist on the artist sheet, but there's no map rendering set up
+              yet (no state-outline SVGs, no mapping library wired in). Once
+              that's in place, this can plot artist.lat/artist.lng on a
+              state-outline SVG keyed off artist.home's state.
 
-          <article className={`${styles.card} ${styles.cardWide}`}>
-            <p className={styles.cardEyebrow}>Key records</p>
-            <h3 className={styles.cardHeading}>Discography</h3>
-            <ul className={styles.discography}>
-              {artist.discography.map((record) => (
-                <li key={record.title}>
-                  <img src={record.coverUrl} alt="" />
-                  <div>
-                    <strong>{record.title}</strong>
-                    <span>{record.year} · {record.type}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <a href={`/encyclopedia/${artist.slug}/discography`} className="btn btn-ghost-dark">
-              View full discography
-            </a>
-          </article>
-          */}
-
-          {/*
-            TODO: "Appalachian Coordinates" map card — lat/lng columns now
-            exist on the artist sheet, but there's no map rendering set up
-            yet (no state-outline SVGs, no mapping library wired in). Once
-            that's in place, this can plot artist.lat/artist.lng on a
-            state-outline SVG keyed off artist.home's state.
-
-          <article className={styles.card}>
-            <p className={styles.cardEyebrow}>Appalachian coordinates</p>
-            <h3 className={styles.cardHeading}>{artist.home}</h3>
-            <StateMap lat={artist.lat} lng={artist.lng} />
-            <p className={styles.cardText}>
-              {artist.lat}° N, {artist.lng}° W
-            </p>
-          </article>
-          */}
-        </div>
+            <article className={styles.card}>
+              <p className={styles.cardEyebrow}>Appalachian coordinates</p>
+              <h3 className={styles.cardHeading}>{artist.home}</h3>
+              <StateMap lat={artist.lat} lng={artist.lng} />
+              <p className={styles.cardText}>
+                {artist.lat}° N, {artist.lng}° W
+              </p>
+            </article>
+            */}
+          </div>
+        )}
 
         {relatedArtists.length > 0 && (
           <div className={styles.related}>

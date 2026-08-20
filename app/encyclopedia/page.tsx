@@ -16,11 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default async function EncyclopediaPage() {
-  const allArtists = await fetchArtists();
-  // Only artists HOLLERBOSS is actively curating show up here — same
-  // calendar=YES gate the Route Sheet uses, so an artist pulled from
-  // rotation (calendar=NO) doesn't linger in the public encyclopedia.
-  const artists = allArtists.filter((a) => a.calendar);
+  // Every artist in the sheet gets an encyclopedia entry — calendar=NO
+  // just means "not currently touring," which scopes the Route Sheet
+  // (see lib/liveShows.ts), not who belongs in the encyclopedia.
+  const artists = await fetchArtists();
 
   return (
     <>
